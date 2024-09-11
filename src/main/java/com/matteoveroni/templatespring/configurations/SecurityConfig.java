@@ -1,5 +1,6 @@
 package com.matteoveroni.templatespring.configurations;
 
+import com.matteoveroni.templatespring.domain.mappers.UserMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -23,6 +24,11 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
                 .build();
+    }
+
+    @Bean
+    public UserMapper getUserMapper() {
+        return UserMapper.INSTANCE;
     }
 
 }

@@ -1,27 +1,31 @@
 package com.matteoveroni.templatespring.controllers;
 
-import com.matteoveroni.templatespring.model.User;
-import com.matteoveroni.templatespring.repositories.UserRepository;
+import com.matteoveroni.templatespring.domain.dto.AddUserDTO;
+import com.matteoveroni.templatespring.domain.dto.ReadUserDTO;
+import com.matteoveroni.templatespring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.function.EntityResponse;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
 public class UsersController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UsersController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public EntityResponse<List<User>> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return EntityResponse.fromObject(users).build();
+    @GetMapping
+    public List<ReadUserDTO> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @PostMapping
+    public AddUserDTO updateUser(@RequestBody AddUserDTO user) {
+        return userService.addUser(user);
     }
 }

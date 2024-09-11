@@ -1,4 +1,4 @@
-package com.matteoveroni.templatespring.model;
+package com.matteoveroni.templatespring.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

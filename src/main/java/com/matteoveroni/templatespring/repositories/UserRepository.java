@@ -1,6 +1,6 @@
 package com.matteoveroni.templatespring.repositories;
 
-import com.matteoveroni.templatespring.model.User;
+import com.matteoveroni.templatespring.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

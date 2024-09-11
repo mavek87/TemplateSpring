@@ -41,9 +41,20 @@ public class UserService {
         }
     }
 
-    public ReadUserDTO writeUser(WriteUserDTO writeUserDTO) {
+    public ReadUserDTO createUser(WriteUserDTO writeUserDTO) {
         User user = userMapper.mapFromWriteUserDTOToUser(writeUserDTO);
         userRepository.save(user);
         return userMapper.mapFromUserToReadUserDTO(user);
+    }
+
+    public ReadUserDTO updateUser(Long id, WriteUserDTO writeUserDTO) {
+        User user = userMapper.mapFromWriteUserDTOToUser(writeUserDTO);
+        user.setId(id);
+        userRepository.save(user);
+        return userMapper.mapFromUserToReadUserDTO(user);
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }

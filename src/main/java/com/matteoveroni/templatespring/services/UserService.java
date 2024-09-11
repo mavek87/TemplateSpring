@@ -1,6 +1,6 @@
 package com.matteoveroni.templatespring.services;
 
-import com.matteoveroni.templatespring.domain.dto.AddUserDTO;
+import com.matteoveroni.templatespring.domain.dto.WriteUserDTO;
 import com.matteoveroni.templatespring.domain.dto.ReadUserDTO;
 import com.matteoveroni.templatespring.domain.mappers.UserMapper;
 import com.matteoveroni.templatespring.domain.model.User;
@@ -23,15 +23,16 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public List<ReadUserDTO> getAllUsers() {
-        return userRepository.findAll().stream()
+    public List<ReadUserDTO> readAllUsers() {
+        return userRepository.findAll()
+                .stream()
                 .map(userMapper::mapFromUserToReadUserDTO)
                 .collect(Collectors.toList());
     }
 
-    public AddUserDTO addUser(AddUserDTO addUserDTO) {
-        User user = userMapper.mapFromAddUserDTOToUser(addUserDTO);
+    public WriteUserDTO writeUser(WriteUserDTO writeUserDTO) {
+        User user = userMapper.mapFromAddUserDTOToUser(writeUserDTO);
         userRepository.save(user);
-        return addUserDTO;
+        return writeUserDTO;
     }
 }

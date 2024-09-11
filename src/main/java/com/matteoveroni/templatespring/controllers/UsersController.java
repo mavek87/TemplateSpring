@@ -1,6 +1,6 @@
 package com.matteoveroni.templatespring.controllers;
 
-import com.matteoveroni.templatespring.domain.dto.AddUserDTO;
+import com.matteoveroni.templatespring.domain.dto.WriteUserDTO;
 import com.matteoveroni.templatespring.domain.dto.ReadUserDTO;
 import com.matteoveroni.templatespring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +21,11 @@ public class UsersController {
 
     @GetMapping
     public List<ReadUserDTO> getAllUsers() {
-        return userService.getAllUsers();
+        return userService.readAllUsers();
     }
 
     @PostMapping
-    public AddUserDTO updateUser(@RequestBody AddUserDTO user) {
-        return userService.addUser(user);
+    public WriteUserDTO updateUser(@RequestBody WriteUserDTO user) {
+        return userService.writeUser(user);
     }
 }

@@ -5,6 +5,7 @@ import com.matteoveroni.templatespring.domain.dto.ReadUserDTO;
 import com.matteoveroni.templatespring.domain.mappers.UserMapper;
 import com.matteoveroni.templatespring.domain.model.User;
 import com.matteoveroni.templatespring.repositories.UserRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +31,19 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public WriteUserDTO writeUser(WriteUserDTO writeUserDTO) {
-        User user = userMapper.mapFromAddUserDTOToUser(writeUserDTO);
+    public Optional<ReadUserDTO> readUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            ReadUserDTO readUserDTO = userMapper.mapFromUserToReadUserDTO(user.get());
+            return Optional.of(readUserDTO);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public ReadUserDTO writeUser(WriteUserDTO writeUserDTO) {
+        User user = userMapper.mapFromWriteUserDTOToUser(writeUserDTO);
         userRepository.save(user);
-        return writeUserDTO;
+        return userMapper.mapFromUserToReadUserDTO(user);
     }
 }

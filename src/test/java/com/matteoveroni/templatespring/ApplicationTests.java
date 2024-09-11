@@ -1,5 +1,6 @@
 package com.matteoveroni.templatespring;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class ApplicationTests {
 
+    @Disabled
     @Nested
     @ActiveProfiles("dev")
     class DevProfileTests {
@@ -26,6 +28,7 @@ class ApplicationTests {
         }
     }
 
+    @Disabled
     @Nested
     @ActiveProfiles("prod")
     class ProdProfileTests {

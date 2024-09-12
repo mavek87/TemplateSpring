@@ -3,7 +3,7 @@ package com.matteoveroni.templatespring.services;
 import com.matteoveroni.templatespring.domain.dto.WriteUserDTO;
 import com.matteoveroni.templatespring.domain.dto.ReadUserDTO;
 import com.matteoveroni.templatespring.domain.mappers.UserMapper;
-import com.matteoveroni.templatespring.domain.model.User;
+import com.matteoveroni.templatespring.domain.entity.User;
 import com.matteoveroni.templatespring.repositories.UserRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

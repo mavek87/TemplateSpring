@@ -4,6 +4,7 @@ import com.matteoveroni.templatespring.domain.dto.ReadUserDTO;
 import com.matteoveroni.templatespring.domain.dto.WriteUserDTO;
 import com.matteoveroni.templatespring.domain.model.User;
 import com.matteoveroni.templatespring.utils.ObjectComparator;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -21,7 +22,7 @@ class UserMapperTest {
     }
 
     @Test
-    void test_map_from_User_to_ReadUserDTO() {
+    void test_map_from_User_to_ReadUserDTO() throws IllegalAccessException {
         // Arrange
         User user = new User(1L, "john_doe", 30);
         user.setId(1L);
@@ -36,7 +37,7 @@ class UserMapperTest {
     }
 
     @Test
-    void test_map_from_ReadUserDTO_to_User() {
+    void test_map_from_ReadUserDTO_to_User() throws IllegalAccessException {
         // Arrange
         ReadUserDTO readUserDTO = new ReadUserDTO(1L, "john_doe", 30);
 
@@ -48,7 +49,7 @@ class UserMapperTest {
     }
 
     @Test
-    void test_map_from_User_to_WriteUserDTO() {
+    void test_map_from_User_to_WriteUserDTO() throws IllegalAccessException {
         // Arrange
         User user = new User(null, "john_doe", 30);
 
@@ -56,12 +57,11 @@ class UserMapperTest {
         WriteUserDTO writeUserDTO = userMapper.mapFromUserToWriteUserDTO(user);
 
         // Assert
-        assertEquals(user.getUsername(), writeUserDTO.username(), "Username should match in WriteUserDTO");
-        assertEquals(user.getAge(), writeUserDTO.age(), "Age should match in WriteUserDTO");
+        assertTrue(ObjectComparator.areFieldsEqualExcludingSome(writeUserDTO, user, Set.of("id")), "WriteUserDTO has not the same fields of User");
     }
 
     @Test
-    void test_map_from_WriteUserDTO_to_User() {
+    void test_map_from_WriteUserDTO_to_User() throws IllegalAccessException {
         // Arrange
         WriteUserDTO writeUserDTO = new WriteUserDTO("john_doe", 30);
 
@@ -69,8 +69,7 @@ class UserMapperTest {
         User user = userMapper.mapFromWriteUserDTOToUser(writeUserDTO);
 
         // Assert
-        assertEquals(writeUserDTO.username(), user.getUsername(), "WriteUserDTO username should match User username");
-        assertEquals(writeUserDTO.age(), user.getAge(), "WriteUserDTO age should match User age");
+        assertTrue(ObjectComparator.areFieldsEqualExcludingSome(user, writeUserDTO, Set.of("id")), "User has not the same fields of WriteUserDTO");
         assertNull(user.getId(), "User ID should be null when mapped from WriteUserDTO");
     }
 }

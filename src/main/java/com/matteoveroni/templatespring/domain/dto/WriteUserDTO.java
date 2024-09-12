@@ -1,4 +1,9 @@
 package com.matteoveroni.templatespring.domain.dto;
 
-public record WriteUserDTO(String username, Integer age) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record WriteUserDTO(
+        @JsonProperty("username") String username,
+        @JsonProperty("age") Integer age
+) {
 }

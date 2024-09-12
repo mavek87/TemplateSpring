@@ -1,11 +1,10 @@
 package com.matteoveroni.templatespring.controllers;
 
-import com.matteoveroni.templatespring.domain.dto.ListResult;
 import com.matteoveroni.templatespring.domain.dto.ReadUserDTO;
+import com.matteoveroni.templatespring.domain.dto.ResponseListDTO;
 import com.matteoveroni.templatespring.domain.dto.WriteUserDTO;
 import com.matteoveroni.templatespring.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +26,8 @@ public class UsersController {
     private final UserService userService;
 
     @GetMapping
-    public ListResult<ReadUserDTO> getAll() {
-        return new ListResult<>(userService.readAllUsers());
+    public ResponseListDTO<ReadUserDTO> getAll() {
+        return new ResponseListDTO<>(userService.readAllUsers());
     }
 
     @GetMapping("/{id}")
@@ -36,6 +35,7 @@ public class UsersController {
         ReadUserDTO user = userService
                 .readUserById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found with id " + id));
+
         return ResponseEntity.ok(user);
     }
 

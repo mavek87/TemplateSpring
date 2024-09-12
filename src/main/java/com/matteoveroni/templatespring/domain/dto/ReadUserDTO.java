@@ -1,4 +1,10 @@
 package com.matteoveroni.templatespring.domain.dto;
 
-public record ReadUserDTO(Long id, String username, Integer age) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record ReadUserDTO(
+        @JsonProperty("id") Long id,
+        @JsonProperty("username") String username,
+        @JsonProperty("age") Integer age
+) {
 }

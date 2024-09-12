@@ -2,6 +2,10 @@ logging:
   level:
     root: WARN
 
+server:
+  error:
+    include-stacktrace: never
+
 spring:
   config:
     activate:

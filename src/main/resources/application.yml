@@ -1,0 +1,16 @@
+# This file contains all the commons properties for each specialized profile (dev, prod)
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: TemplateSpring
+
+  config:
+    import:
+      - application-dev.yml
+      - application-prod.yml
+
+  profiles:
+    active: "${APP_ENVIRONMENT:dev}"

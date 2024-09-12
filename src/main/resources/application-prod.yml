@@ -1,0 +1,13 @@
+logging:
+  level:
+    root: WARN
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  security:
+    user:
+      name: admin
+      password: password

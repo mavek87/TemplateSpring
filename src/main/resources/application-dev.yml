@@ -1,0 +1,27 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  security:
+    user:
+      name: user
+      password: password
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/template_db
+    username: postgres
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        # default_schema: template_schema

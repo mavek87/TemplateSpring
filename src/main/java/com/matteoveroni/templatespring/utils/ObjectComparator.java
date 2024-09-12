@@ -22,26 +22,26 @@ public class ObjectComparator {
             return false;
         }
 
-        Objects.requireNonNull(fieldsNamesToExclude, "Fields names to exclude set must not be null!");
-
         Class<?> class1 = obj1.getClass();
         Class<?> class2 = obj2.getClass();
+        Set<String> excludedFieldsNames = (fieldsNamesToExclude == null) ? new HashSet<>() : fieldsNamesToExclude;
 
         if (class1.equals(class2)) {
-            return areObjectsWithSameClassWithTheSameFields(obj1, obj2, fieldsNamesToExclude, class1);
+            return areObjectsWithSameClassWithTheSameFields(obj1, obj2, excludedFieldsNames);
         } else {
-            return areObjectsWithDifferentClassesWithTheSameFields(obj1, obj2, fieldsNamesToExclude);
+            return areObjectsWithDifferentClassesWithTheSameFields(obj1, obj2, excludedFieldsNames);
         }
     }
 
-    private static boolean areObjectsWithSameClassWithTheSameFields(Object obj1, Object obj2, Set<String> fieldsNamesToExclude, Class<?> clazz) throws IllegalAccessException {
+    private static boolean areObjectsWithSameClassWithTheSameFields(Object obj1, Object obj2, Set<String> excludedFieldsNames) throws IllegalAccessException {
+        Class<?> clazz = obj1.getClass();
         Field[] fields = clazz.getDeclaredFields();
 
         for (Field field : fields) {
             field.setAccessible(true);
 
             String fieldName = field.getName();
-            if (fieldsNamesToExclude.contains(fieldName)) {
+            if (excludedFieldsNames.contains(fieldName)) {
                 continue;
             }
 
@@ -55,13 +55,13 @@ public class ObjectComparator {
         return true;
     }
 
-    private static boolean areObjectsWithDifferentClassesWithTheSameFields(Object obj1, Object obj2, Set<String> fieldsNamesToExclude) throws IllegalAccessException {
-        Map<String, Object> metadataFieldsObj1 = extractFieldsMetadata(obj1, fieldsNamesToExclude);
-        Map<String, Object> metadataFieldsObj2 = extractFieldsMetadata(obj2, fieldsNamesToExclude);
+    private static boolean areObjectsWithDifferentClassesWithTheSameFields(Object obj1, Object obj2, Set<String> excludedFieldsNames) throws IllegalAccessException {
+        Map<String, Object> metadataFieldsObj1 = extractFieldsMetadata(obj1, excludedFieldsNames);
+        Map<String, Object> metadataFieldsObj2 = extractFieldsMetadata(obj2, excludedFieldsNames);
         return metadataFieldsObj1.equals(metadataFieldsObj2);
     }
 
-    private static Map<String, Object> extractFieldsMetadata(Object obj1, Set<String> fieldsNamesToExclude) throws IllegalAccessException {
+    private static Map<String, Object> extractFieldsMetadata(Object obj1, Set<String> excludedFieldsNames) throws IllegalAccessException {
         Field[] fields = obj1.getClass().getDeclaredFields();
 
         Map<String, Object> fieldsMetadata = new HashMap<>();
@@ -70,7 +70,7 @@ public class ObjectComparator {
             field.setAccessible(true);
 
             String fieldName = field.getName();
-            if (fieldsNamesToExclude.contains(fieldName)) {
+            if (excludedFieldsNames.contains(fieldName)) {
                 continue;
             }
 

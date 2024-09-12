@@ -28,8 +28,7 @@ public class UsersController {
 
     @GetMapping
     public ListResult<ReadUserDTO> getAll() {
-        throw new RuntimeException("ciaone");
-//        return new ListResult<>(userService.readAllUsers());
+        return new ListResult<>(userService.readAllUsers());
     }
 
     @GetMapping("/{id}")

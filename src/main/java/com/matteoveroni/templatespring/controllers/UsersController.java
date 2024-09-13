@@ -5,7 +5,7 @@ import com.matteoveroni.templatespring.domain.dto.ResponseListDTO;
 import com.matteoveroni.templatespring.domain.dto.WriteUserDTO;
 import com.matteoveroni.templatespring.services.UserService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping(path = "/api/users", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Validated
 public class UsersController {
 

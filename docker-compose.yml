@@ -1,20 +1,38 @@
-version: '3.8'
-
 services:
-  db:
-    image: postgres:latest
+  postgres-db:
+    image: postgres:16.4-alpine
     restart: always
     ports:
       - '5432:5432'
     volumes:
-      - template_db_volume:/data/template_db_volume
+      - template_spring_db_volume:/data/template_spring_db_volume
     environment:
       SPRING_PROFILES_ACTIVE: dev
-      POSTGRES_DB: template_db
+      POSTGRES_DB: template_spring_db
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: password
+    networks:
+      - template_spring_network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.6
+    restart: always
+    command: start-dev
+    depends_on:
+      - postgres-db
+    ports:
+      - '8888:8080'
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - template_spring_network
 
 volumes:
-  template_db_volume:
+  template_spring_db_volume:
     driver:
       local
+
+networks:
+  template_spring_network:
+    driver: bridge

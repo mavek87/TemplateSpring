@@ -14,3 +14,7 @@ spring:
 
   profiles:
     active: "${APP_ENVIRONMENT:dev}"
+
+#  sql:
+#    init:
+#      mode: always

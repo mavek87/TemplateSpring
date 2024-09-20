@@ -17,7 +17,7 @@ spring:
       password: password
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/template_db
+    url: jdbc:postgresql://localhost:5432/template_spring_db
     username: postgres
     password: password
 
@@ -29,3 +29,8 @@ spring:
       hibernate:
         format_sql: true
         # default_schema: template_schema
+
+  docker:
+    compose:
+      enabled: true
+      file: docker-compose.yml

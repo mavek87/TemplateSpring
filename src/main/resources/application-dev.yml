@@ -1,6 +1,9 @@
 logging:
   level:
     root: INFO
+    org:
+      springframework:
+        security: ${SPRING_SECURITY_LOG_LEVEL:TRACE}
 
 server:
   error:
@@ -12,9 +15,13 @@ spring:
       on-profile: dev
 
   security:
-    user:
-      name: user
-      password: password
+#    user:
+#      name: user
+#      password: password
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8888/realms/master
 
   datasource:
     url: jdbc:postgresql://localhost:5432/template_spring_db

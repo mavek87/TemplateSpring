@@ -25,6 +25,8 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+    volumes:
+      - ./keycloack/custom-providers/CustomKeycloackMapper-1.0.0.jar:/opt/keycloak/providers/CustomKeycloackMapper.jar
     networks:
       - template_spring_network
 

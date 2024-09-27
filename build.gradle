@@ -66,7 +66,7 @@ tasks.named("test") {
 jib {
     def tag = "latest"
     from {
-        image = "azul/zulu-openjdk:21-jre-headless"
+        image = "azul/zulu-openjdk-alpine:21.0.4-jre"
     }
     to {
         image = "registry.hub.docker.com/mavek87/template_spring"

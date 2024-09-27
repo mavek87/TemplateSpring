@@ -1,4 +1,4 @@
-create table if not exists users
+CREATE TABLE IF NOT EXISTS users
 (
     age        integer,
     created_at timestamp(6),

@@ -23,10 +23,10 @@ spring:
         jwt:
           issuer-uri: http://localhost:8888/realms/master
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/template_spring_db
-    username: postgres
-    password: password
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/app_db
+#    username: postgres
+#    password: password
 
   jpa:
     hibernate:

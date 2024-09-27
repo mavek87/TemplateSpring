@@ -1,6 +1,6 @@
 services:
   postgres-app:
-    image: postgres:16.4-alpine
+    image: postgres:17-alpine
     restart: no
     ports:
       - '5432:5432'
@@ -15,7 +15,7 @@ services:
       - template_spring_network
 
   postgres-keycloak:
-    image: postgres:16.4-alpine
+    image: postgres:17-alpine
     restart: no
     ports:
       - '5433:5432'

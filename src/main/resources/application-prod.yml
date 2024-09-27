@@ -1,6 +1,6 @@
 logging:
   level:
-    root: WARN
+    root: INFO
 
 server:
   error:
@@ -23,7 +23,11 @@ spring:
     properties:
       hibernate:
         format_sql: false
+        boot:
+          allow_jdbc_metadata_access=false:
 
   docker:
     compose:
       enabled: false
+#      enabled: true
+#      file: docker-compose.yml

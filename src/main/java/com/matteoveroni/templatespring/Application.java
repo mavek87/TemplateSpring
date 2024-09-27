@@ -24,5 +24,7 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("Hello world from commandLine runner!!!");
+        String vendor = System.getProperty("java.vendor");
+        log.info("Java Vendor: {}", vendor);
     }
 }

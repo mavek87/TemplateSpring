@@ -38,3 +38,7 @@ public void verifyAccessTokenJwtKeycloak() throws NoSuchAlgorithmException, Inva
 ### Keycloak:
 
 - https://medium.com/@disa2aka/docker-deployments-for-keycloak-and-postgresql-e75707b155e5
+
+### Jib:
+
+- https://contact-rajeshvinayagam.medium.com/build-containers-with-jib-simplify-containerization-workflow-da5f3d192e64

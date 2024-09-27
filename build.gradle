@@ -64,8 +64,10 @@ tasks.named("test") {
 }
 
 jib {
-    def tag = "latest"
+//    tags = ["latest", "${version}"]
     from {
+        // Interesting: https://github.com/GoogleContainerTools/distroless
+        // gcr.io/distroless/java21-debian12
         image = "azul/zulu-openjdk-alpine:21.0.4-jre"
     }
     to {
@@ -73,6 +75,16 @@ jib {
         auth {
             username = "${dockerhub_registry_username}"
             password = "${dockerhub_registry_password}"
+        }
+    }
+    container {
+        jvmFlags = ["-Xdebug"]
+        ports = ["8080"]
+        // TODO: understand how to manage different environments
+        if (project.hasProperty("APP_ENVIRONMENT")) {
+            setEnvironment(Map.of("SPRING_PROFILES_ACTIVE", "prod"))
+        } else {
+            setEnvironment(Map.of("SPRING_PROFILES_ACTIVE", "prod"))
         }
     }
 }

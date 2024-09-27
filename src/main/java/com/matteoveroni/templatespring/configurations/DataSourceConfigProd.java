@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("!dev")
+@Profile("prod")
 public class DataSourceConfigProd {
 
     @Primary

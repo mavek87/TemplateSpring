@@ -1,0 +1,84 @@
+services:
+  template_spring_app:
+    image: mavek87/template_spring:1.0.0
+    restart: no
+    depends_on:
+      - postgres-app
+      - keycloak
+    ports:
+      - '8080:8080'
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    networks:
+      - template_spring_network
+
+  postgres-app:
+    image: postgres:17-alpine
+    restart: no
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./scripts/database/app/:/docker-entrypoint-initdb.d
+      - app_db_volume:/data/app_db_volume
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: password
+    networks:
+      - template_spring_network
+
+  postgres-keycloak:
+    image: postgres:17-alpine
+    restart: no
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./scripts/database/keycloak/:/docker-entrypoint-initdb.d
+      - keycloak_db_volume:/data/keycloak_db_volume
+    environment:
+      POSTGRES_DB: keycloak_db
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: password
+    networks:
+      - template_spring_network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.6
+    restart: no
+    command: start
+    # command: start-dev # for test on memory db
+    depends_on:
+      - postgres-keycloak
+    ports:
+      - '8888:8080'
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HEALTH_ENABLED: true
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres-keycloak/keycloak_db
+      KC_DB_PORT: 5433
+      KC_DB_SCHEMA: keycloak
+      KC_DB_USERNAME: keycloak_user
+      KC_DB_PASSWORD: keycloak_password
+    volumes:
+      - ./keycloak/custom-providers/CustomKeycloakMapper-1.0.0.jar:/opt/keycloak/providers/CustomKeycloakMapper.jar
+    networks:
+      - template_spring_network
+
+volumes:
+  app_db_volume:
+    driver:
+      local
+  keycloak_db_volume:
+    driver:
+      local
+
+networks:
+  template_spring_network:
+    driver: bridge

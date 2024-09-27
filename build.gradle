@@ -72,19 +72,20 @@ jib {
     }
     to {
         image = "registry.hub.docker.com/mavek87/template_spring"
+        tags = ["latest", "${version}"]
         auth {
             username = "${dockerhub_registry_username}"
             password = "${dockerhub_registry_password}"
         }
     }
     container {
-        jvmFlags = ["-Xdebug"]
+//        jvmFlags = ["-Xdebug"]
         ports = ["8080"]
-        // TODO: understand how to manage different environments
-        if (project.hasProperty("APP_ENVIRONMENT")) {
-            setEnvironment(Map.of("SPRING_PROFILES_ACTIVE", "prod"))
-        } else {
-            setEnvironment(Map.of("SPRING_PROFILES_ACTIVE", "prod"))
-        }
+//         TODO: understand how to manage different environments
+//        if (project.hasProperty("APP_ENVIRONMENT")) {
+//            setEnvironment(Map.of("SPRING_PROFILES_ACTIVE", "prod"))
+//        } else {
+//            setEnvironment(Map.of("SPRING_PROFILES_ACTIVE", "prod"))
+//        }
     }
 }

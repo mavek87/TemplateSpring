@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Profile("!dev")
-public class DatabaseConfigProd {
+public class DataSourceConfigProd {
 
     @Primary
     @Bean

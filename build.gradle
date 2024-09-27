@@ -5,7 +5,7 @@ plugins {
     id "com.google.cloud.tools.jib" version "3.4.3"
 }
 
-group = "com.matteoveroni.templatestring"
+group = "com.matteoveroni.templatespring"
 version = "1.0.0"
 
 java {
@@ -15,7 +15,7 @@ java {
 }
 
 bootJar {
-    archiveFileName = "prova.jar"
+    archiveFileName = "template-spring.jar"
 }
 
 repositories {

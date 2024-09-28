@@ -1,4 +1,4 @@
-package com.matteoveroni.templatespring.configurations;
+package com.matteoveroni.templatespring.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

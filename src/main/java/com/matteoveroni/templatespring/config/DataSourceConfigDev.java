@@ -1,4 +1,4 @@
-package com.matteoveroni.templatespring.configurations;
+package com.matteoveroni.templatespring.config;
 
 import javax.sql.DataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;

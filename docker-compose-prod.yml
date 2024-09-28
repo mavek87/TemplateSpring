@@ -1,6 +1,6 @@
 services:
   template_spring_app:
-    image: mavek87/template_spring:1.0.0
+    image: mavek87/template_spring:1.0.1
     restart: no
     depends_on:
       - postgres-app

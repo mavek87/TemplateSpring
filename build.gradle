@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.matteoveroni.templatespring"
-version = "1.0.0"
+version = "1.0.1"
 
 java {
     toolchain {
@@ -68,7 +68,8 @@ jib {
     from {
         // Interesting: https://github.com/GoogleContainerTools/distroless
         // gcr.io/distroless/java21-debian12
-        image = "azul/zulu-openjdk-alpine:21.0.4-jre"
+//        image = "azul/zulu-openjdk-alpine:21.0.4-jre"
+        image = "gcr.io/distroless/java21-debian12:latest"
     }
     to {
         image = "registry.hub.docker.com/mavek87/template_spring"
